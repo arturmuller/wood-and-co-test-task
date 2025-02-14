@@ -1,0 +1,72 @@
+:root {
+  font-family: atyp-wood, sans-serif;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/*
+ * This nonsense is included in the legacy codebase, so we have to take it into
+ * account when developing storybook copmonents as well.
+ */
+svg {
+  display: block;
+  vertical-align: middle;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: atyp-wood;
+  font-weight: 100 400;
+  src:
+    url("/AtypFix/Regular/AtypWood-Regular.woff") format("woff"),
+    url("/AtypFix/Regular/AtypWood-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: atyp-wood;
+  font-weight: 500;
+  src:
+    url("/AtypFix/Medium/AtypWood-Medium.woff") format("woff"),
+    url("/AtypFix/Medium/AtypWood-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: atyp-wood;
+  font-weight: 600 900;
+  src:
+    url("/AtypFix/Bold/AtypWood-Bold.woff") format("woff"),
+    url("/AtypFix/Bold/AtypWood-Bold.woff2") format("woff2");
+}

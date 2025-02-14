@@ -1,0 +1,75 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Welcome" />
+
+# Welcome
+
+Hello there! Thank you for taking the time to complete this task! Please read
+this entire document carefully -- it should contain everything you need to know
+to complete this small component.
+
+## Brief
+
+Your task has two parts:
+
+1. Take the code that is currently in the WoodAssetsOverview directory, and make
+   sure that it conforms to the spec which is outlined below. You can these
+   Storybook page during development: [Assets Overview stories](/docs/components-assets-overview--docs).
+   Note that although the component overall is not complete, many things have already been
+   addressed, for example some base styling. You don't need to change things
+   that are working for you, but don't be afraid to challenge or change things
+   that don't look right. Please note that **mobile styles/versions and info
+   buttons (lowercase letter i in a circle) are not part of this task**. Feel
+   free to simply ignore them.
+
+2. Provide feedback to the junior developer where appropriate.
+
+**Important:** If you're having issues completing the entirety of the spec, or
+don't have time to provide feedback, don't stress. Just try to complete as much
+as possible!
+
+### Spec
+
+The component is a horizontal slider of financial assets that a user sees on
+their dashboard.
+
+It looks like this:
+
+![](/assets-overview.png)
+
+More detail can be seen on the following [Figma link](https://www.figma.com/design/l9U3c4FeO4cDSh5c8bY3W2/Untitled?node-id=0-1&t=LpSKZbRLAWAKxQrm-1).
+
+Couple of important notes:
+
+- The component should perfectly match Figma.
+- The component can have two or more items. If there are two to four items,
+  the items are simply shown as per Figma. Once there are five or more items,
+  red arrow controls should appear on both sides of the component and the user
+  should be able to use them to move from one item to the next in discrete
+  steps.
+- In addition to the arrows, users on devices that support touch should be able
+  to simply scroll within the card from one card to another. Items should snap
+  to the start of their 'box'. See CSS Scroll Snap below.
+- No scrollbars should be visible.
+
+### Limitations & Implementation Tips
+
+Because we are in the middle of Vue2/Vue3 transition, we are severly limited
+when it comes to the libraries we can use out of the box. For this reason, we
+need this component completed without using external code. Luckily, modern
+technologies make this very possible without a mountain of code.
+
+You can use whatever APIs you want to complete this task, but here are some
+recommendations:
+
+- **CSS Scroll Snap** for inner scroll that snaps in discrete steps.
+  [More on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap)
+- **Intersection Observer** for tracking the visibility of rendered items. This
+  is particularly helpful for deciding which arrows should be disabled and
+  which should be interactive. [More in MDN](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+- DOM Element's `scrollIntoView` method can be useful for scrolling to an
+  element within a scrollable container. [More on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
+
+---
+
+Good luck and looking forward to your submission!

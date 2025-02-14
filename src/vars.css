@@ -1,0 +1,70 @@
+:root {
+  /* Spacing */
+  --space-xxs: 2px;
+  --space-xs: 5px;
+  --space-s: 10px;
+  --space-s-extra: 15px;
+  --space-m: 20px;
+  --space-m-extra: 25px;
+  --space-l: 30px;
+  --space-l-extra: 35px;
+  --space-xl: 40px;
+  --space-xxl: 60px;
+  --mobile: 768px;
+
+  /* Colors */
+  --color-black-20: #ebebeb;
+  --color-black-40: #d7d7d7;
+  --color-black-70: #6a7172;
+  --color-black-80: #4c5c5c;
+  --color-black-60: #979797;
+  --color-black-100: #05302f;
+  --color-blue-100: #47659f;
+  --color-green-10: #f9fafa;
+  --color-green-20: #e9eded;
+  --color-green-30: #b0bcbd;
+  --color-green-40: #9bc1be;
+  --color-green-50: #7aa9aa;
+  --color-green-100: #0f3738;
+  --color-bright-green-30: #d9e7e7;
+  --color-bright-green-50: #80afaf;
+  --color-bright-green-70: #4d8f90;
+  --color-bright-green-100: #005f60;
+  --color-orange-10: #fcf3ed;
+  --color-orange-20: #f7ddcc;
+  --color-orange-50: #ecaf86;
+  --color-orange-100: #e18748;
+  --color-dark-orange-100: #b8672e;
+  --color-orange-dark-text: #733a13;
+  --color-red-10: #fdeded;
+  --color-red-20: #facecc;
+  --color-red-50: #f1a39d;
+  --color-red-100: #ee5246;
+  --color-bright-red-20: #facecc;
+  --color-dark-red-100: #c4352a;
+  --color-red-dark-text: #5b2f2c;
+  --color-white-10: #fcfcfc;
+  --color-white-100: #ffffff;
+
+  --color-dark-green-100: #194648;
+
+  /* TODO: Clarify this color with Design */
+  --color-disclaimer-green: #3f5f60;
+
+  /* Font Families */
+  --font-family-atyp-wood: atyp-wood, sans-serif;
+
+  /* Body Fonts */
+  --font-l: 18px/26px var(--font-family-atyp-wood);
+  --font-m: 16px/24px var(--font-family-atyp-wood);
+  --font-s: 14px/20px var(--font-family-atyp-wood);
+  --font-xs: 12px/18px var(--font-family-atyp-wood);
+  --font-xxs: 11px/16px var(--font-family-atyp-wood);
+
+  /* Heading Fonts */
+  --font-heading-s: 600 18px/25px var(--font-family-atyp-wood);
+  --font-heading-s-extra: 600 20px/30px var(--font-family-atyp-wood);
+  --font-heading-m: 600 24px/30px var(--font-family-atyp-wood);
+  --font-heading-l: 600 28px/35px var(--font-family-atyp-wood);
+  --font-heading-xl: 600 36px/45px var(--font-family-atyp-wood);
+}

@@ -1,0 +1,17 @@
+{
+  "extends": ["stylelint-config-recommended-vue"],
+  "rules": {
+    "property-disallowed-list": [
+      ["/^(padding|margin)-(top|left|bottom|right)$/"],
+      {
+        "message": "Use logical CSS properties, e.g. padding-block-start, margin-inline, etc..."
+      }
+    ],
+    "declaration-property-value-allowed-list": [
+      { "padding": ["0", "/^var\\(--space-[a-z-]+\\)$/"] },
+      {
+        "message": "When using the padding shorthand, only the the use of 0 or a single var function is allowed."
+      }
+    ]
+  }
+}

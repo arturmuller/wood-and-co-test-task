@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "dbaeumer.vscode-eslint",
+    "unifiedjs.vscode-mdx",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "ms-azure-devops.azure-pipelines"
+  ]
+}

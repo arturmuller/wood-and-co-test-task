@@ -1,0 +1,41 @@
+/*
+ * IMPORTANT: If you're adding/removing classes to this module, make sure
+ * to update the typing information in `commonCssMixin.ts`.
+ */
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.sectionsStack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xxl);
+}
+
+.cardBase {
+  border-radius: var(--space-m);
+  padding: var(--space-m);
+
+  @media (min-width: 768px) {
+    padding: var(--space-l);
+  }
+}
+
+.fadeIn {
+  animation: fadeInAnimation 600ms both;
+}
+
+.fragment {
+  display: contents;
+}
+
+.textLink {
+  text-decoration: underline;
+}
