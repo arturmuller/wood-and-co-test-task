@@ -48,7 +48,7 @@ export default {
       return false;
     },
     showNavigation() {
-      return true;
+      return this.totalItems > 4;
     },
   },
 
