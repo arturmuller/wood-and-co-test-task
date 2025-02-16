@@ -65,16 +65,17 @@ export default {
     showNavigation() {
       return this.totalItems > 4;
     },
-    itemsVisibilityArray() {
-      return Object.entries(this.visibilityByIndex) || [];
+    visibleIndexes() {
+      const itemsVisibilityArray = Object.entries(this.visibilityByIndex) || [];
+      return itemsVisibilityArray
+        .filter(([_, isVisible]) => isVisible)
+        .map(([index]) => parseInt(index));
     },
     firstVisibleItemIndex() {
-      return this.itemsVisibilityArray.findIndex(([_, isVisible]) => isVisible);
+      return this.visibleIndexes.length ? Math.min(...this.visibleIndexes) : 0;
     },
     lastVisibleItemIndex() {
-      return this.itemsVisibilityArray.reduce((acc, [index, isVisible]) => {
-        return isVisible ? parseInt(index) : acc;
-      }, 0);
+      return this.visibleIndexes.length ? Math.max(...this.visibleIndexes) : 0;
     },
   },
 
