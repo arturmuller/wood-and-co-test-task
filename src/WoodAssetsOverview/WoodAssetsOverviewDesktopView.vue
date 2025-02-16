@@ -156,38 +156,27 @@ export default {
 
 <template>
   <div>
-    <div v-if="showNavigation" :class="[$commonCss.cardBase, $css.container]">
-      <WoodButtonElement @click="moveLeft">
+    <div :class="[$commonCss.cardBase, $css.container]">
+      <WoodButtonElement v-if="showNavigation" @click="moveLeft">
         <WoodArrowLeft :class="[$css.arrowButton, !canMoveLeft && $css.isDisabled]" />
       </WoodButtonElement>
 
-      <div ref="container" :class="$css.containerData">
+      <div ref="container" :class="[showNavigation && $css.containerData, !showNavigation && $css.containerDataWithoutButtons]">
         <div
           v-for="(overviewItem, index) in items"
           ref="items"
           :key="index"
           :data-index="index"
-          :class="$css.assetsOverviewItem"
+          :class="[$css.assetsOverviewItem, lastVisibleItemIndex === index && showNavigation && $css.lastVisibleItem, !showNavigation && $css.assetsOverviewItemWithoutButtons]"
           :style="{ transform: `translateX(-${startIndex * (213 + 20)}px)` }"
         >
           <WoodAssetsOverviewDesktopItem v-bind="$props" :item="overviewItem" />
         </div>
       </div>
 
-      <WoodButtonElement @click="moveRight">
+      <WoodButtonElement v-if="showNavigation" @click="moveRight">
         <WoodArrowRight :class="[$css.arrowButton, !canMoveRight && $css.isDisabled]" />
       </WoodButtonElement>
-    </div>
-
-    <!-- If the number of items is less than 4 -->
-    <div v-else :class="[$commonCss.cardBase, $css.containerDataWithoutButtons]">
-      <div
-        v-for="(overviewItem, index) in items"
-        :key="index"
-        :class="$css.assetsOverviewItemWithoutButtons"
-      >
-        <WoodAssetsOverviewDesktopItem v-bind="$props" :item="overviewItem" />
-      </div>
     </div>
   </div>
 </template>
