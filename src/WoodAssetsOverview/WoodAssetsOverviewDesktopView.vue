@@ -8,7 +8,16 @@ import WoodArrowRight from "./WoodArrowRight.vue";
 import WoodAssetsOverviewDesktopItem from "./WoodAssetsOverviewDesktopItem.vue";
 
 /**
- * TODO: Component description...
+ * This component displays a horizontal list of asset overview items.
+ * In case there are more than 4 items. It allows the user to scroll through the items using left and right arrows.
+ * Component is designed for desktop view.
+ * 
+ * To track visibility of items IntersectionObserver is used. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+ * Even though browsers should automatically handle memory cleanup for IntersectionObserver, it is good practice to disconnect the observer when the component is unmounted.
+ *
+ * For scrolling to the next item, the component uses the `scrollIntoView` method. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
+ * 
+ * CSS Scroll Snap is used to make the scrolling in descrete steps. [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap)
  */
 export default {
   name: "WoodAssetsOverviewDesktopView",
@@ -41,29 +50,59 @@ export default {
     totalItems() {
       return this.items.length;
     },
+    isFirstItemVisible() {
+      return this.visibilityByIndex[0];
+    },
+    isLastItemVisible() {
+      return this.visibilityByIndex[this.totalItems - 1];
+    },
     canMoveLeft() {
-      return false;
+      return !this.isFirstItemVisible;
     },
     canMoveRight() {
-      return false;
+      return !this.isLastItemVisible;
     },
     showNavigation() {
-      return true;
+      return this.totalItems > 4;
+    },
+    visibleIndexes() {
+      const itemsVisibilityArray = Object.entries(this.visibilityByIndex) || [];
+      return itemsVisibilityArray
+        .filter(([_, isVisible]) => isVisible)
+        .map(([index]) => parseInt(index));
+    },
+    firstVisibleItemIndex() {
+      return this.visibleIndexes.length ? Math.min(...this.visibleIndexes) : 0;
+    },
+    lastVisibleItemIndex() {
+      return this.visibleIndexes.length ? Math.max(...this.visibleIndexes) : 0;
     },
   },
 
   mounted() {
-    this.observer = this.setUpObserver();
+    this.setUpObserver();
+  },
+  beforeUnmount() {
+    this.destroyObserver();
   },
 
   methods: {
     moveLeft() {
-      // TODO: Find a visible item with the lowest index, then focus an element with an index
-      // that is one lower then that index.
+      if (!this.canMoveLeft) return;
+
+      this.scrollIntoView(this.firstVisibleItemIndex - 1);
     },
-    moveRight() {
-      // TODO: Find a visible item with the highest index, then focus an element with an index
-      // that is one higher then that index.
+    moveRight() { 
+      if (!this.canMoveRight) return;
+
+      this.scrollIntoView(this.lastVisibleItemIndex + 1);
+    },
+
+    scrollIntoView(index: number) {
+      const itemElements = this.getItemElements();
+      if (!itemElements || !itemElements[index]) return;
+
+      itemElements[index].scrollIntoView({ behavior: "smooth", inline: "nearest" });
     },
 
     getItemElements() {
@@ -99,7 +138,9 @@ export default {
     },
 
     setUpObserver() {
-      const observer = new IntersectionObserver(
+      if (!this.showNavigation) return;
+
+      this.observer = new IntersectionObserver(
         (entries) => {
           for (const { isIntersecting, target } of entries) {
             const element = target as HTMLElement;
@@ -111,10 +152,13 @@ export default {
       );
 
       for (const element of this.getItemElements()) {
-        observer.observe(element);
+        this.observer.observe(element);
       }
-
-      return observer;
+    },
+    destroyObserver() {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
     },
   },
 };
@@ -122,38 +166,27 @@ export default {
 
 <template>
   <div>
-    <div v-if="showNavigation" :class="[$commonCss.cardBase, $css.container]">
-      <WoodButtonElement @click="moveLeft">
+    <div :class="[$commonCss.cardBase, $css.container]">
+      <WoodButtonElement v-if="showNavigation" @click="moveLeft">
         <WoodArrowLeft :class="[$css.arrowButton, !canMoveLeft && $css.isDisabled]" />
       </WoodButtonElement>
 
-      <div ref="container" :class="$css.containerData">
+      <div ref="container" :class="[showNavigation && $css.containerData, !showNavigation && $css.containerDataWithoutButtons]">
         <div
           v-for="(overviewItem, index) in items"
           ref="items"
           :key="index"
           :data-index="index"
-          :class="$css.assetsOverviewItem"
+          :class="[$css.assetsOverviewItem, lastVisibleItemIndex === index && showNavigation && $css.lastVisibleItem, !showNavigation && $css.assetsOverviewItemWithoutButtons]"
           :style="{ transform: `translateX(-${startIndex * (213 + 20)}px)` }"
         >
           <WoodAssetsOverviewDesktopItem v-bind="$props" :item="overviewItem" />
         </div>
       </div>
 
-      <WoodButtonElement @click="moveRight">
+      <WoodButtonElement v-if="showNavigation" @click="moveRight">
         <WoodArrowRight :class="[$css.arrowButton, !canMoveRight && $css.isDisabled]" />
       </WoodButtonElement>
-    </div>
-
-    <!-- If the number of items is less than 4 -->
-    <div v-else :class="[$commonCss.cardBase, $css.containerDataWithoutButtons]">
-      <div
-        v-for="(overviewItem, index) in items"
-        :key="index"
-        :class="$css.assetsOverviewItemWithoutButtons"
-      >
-        <WoodAssetsOverviewDesktopItem v-bind="$props" :item="overviewItem" />
-      </div>
     </div>
   </div>
 </template>
@@ -171,7 +204,11 @@ export default {
 .containerData {
   display: flex;
   gap: 20px;
-  overflow: hidden;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;  /* hide scrollbar in Internet Explorer 10+ */
+  scrollbar-width: none;  /* hide scrollbar in Chrome, Safari and Firefox */
 }
 
 .assetsOverviewItem {
@@ -179,6 +216,11 @@ export default {
   width: 213px;
   flex-shrink: 0;
   transition: transform 0.5s ease-in-out;
+  text-align: right;
+  scroll-snap-align: start;
+}
+.lastVisibleItem {
+  border-right: none;
 }
 
 .arrowButton {
@@ -204,8 +246,9 @@ export default {
 }
 
 .containerDataWithoutButtons {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: var(--space-m-extra);
   background-color: white;
   padding-inline: var(--space-m);
@@ -214,5 +257,10 @@ export default {
 
 .assetsOverviewItemWithoutButtons {
   border-right: 1px solid var(--color-green-30);
+  text-align: right;
+  flex: 1;
+}
+.assetsOverviewItemWithoutButtons:last-child {
+  border-right: none;
 }
 </style>
