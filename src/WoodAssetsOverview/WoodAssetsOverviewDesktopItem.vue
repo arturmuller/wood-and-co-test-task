@@ -62,5 +62,6 @@ export default {
   font: var(--font-m);
   color: var(--color-green-100);
   white-space: nowrap;
+  font-weight: 600;
 }
 </style>
