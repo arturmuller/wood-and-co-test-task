@@ -41,11 +41,17 @@ export default {
     totalItems() {
       return this.items.length;
     },
+    isFirstItemVisible() {
+      return this.visibilityByIndex[0];
+    },
+    isLastItemVisible() {
+      return this.visibilityByIndex[this.totalItems - 1];
+    },
     canMoveLeft() {
-      return false;
+      return !this.isFirstItemVisible;
     },
     canMoveRight() {
-      return false;
+      return !this.isLastItemVisible;
     },
     showNavigation() {
       return this.totalItems > 4;
