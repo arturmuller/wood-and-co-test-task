@@ -213,6 +213,8 @@ export default {
   width: 213px;
   flex-shrink: 0;
   transition: transform 0.5s ease-in-out;
+.lastVisibleItem {
+  border-right: none;
 }
 
 .arrowButton {
@@ -248,5 +250,7 @@ export default {
 
 .assetsOverviewItemWithoutButtons {
   border-right: 1px solid var(--color-green-30);
+.assetsOverviewItemWithoutButtons:last-child {
+  border-right: none;
 }
 </style>
