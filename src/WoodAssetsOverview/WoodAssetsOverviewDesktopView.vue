@@ -8,7 +8,16 @@ import WoodArrowRight from "./WoodArrowRight.vue";
 import WoodAssetsOverviewDesktopItem from "./WoodAssetsOverviewDesktopItem.vue";
 
 /**
- * TODO: Component description...
+ * This component displays a horizontal list of asset overview items.
+ * In case there are more than 4 items. It allows the user to scroll through the items using left and right arrows.
+ * Component is designed for desktop view.
+ * 
+ * To track visibility of items IntersectionObserver is used. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+ * Even though browsers should automatically handle memory cleanup for IntersectionObserver, it is good practice to disconnect the observer when the component is unmounted.
+ *
+ * For scrolling to the next item, the component uses the `scrollIntoView` method. [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
+ * 
+ * CSS Scroll Snap is used to make the scrolling in descrete steps. [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap)
  */
 export default {
   name: "WoodAssetsOverviewDesktopView",
