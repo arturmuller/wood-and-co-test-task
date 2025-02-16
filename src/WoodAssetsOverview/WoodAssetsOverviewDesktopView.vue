@@ -72,6 +72,8 @@ export default {
   mounted() {
     this.setUpObserver();
   },
+  beforeUnmount() {
+    this.destroyObserver();
   },
 
   methods: {
@@ -143,6 +145,10 @@ export default {
         this.observer.observe(element);
       }
     },
+    destroyObserver() {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
     },
   },
 };
