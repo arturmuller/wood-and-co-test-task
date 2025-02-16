@@ -75,12 +75,21 @@ export default {
 
   methods: {
     moveLeft() {
-      // TODO: Find a visible item with the lowest index, then focus an element with an index
-      // that is one lower then that index.
+      if (!this.canMoveLeft) return;
+
+      this.scrollIntoView(this.firstVisibleItemIndex - 1);
     },
-    moveRight() {
-      // TODO: Find a visible item with the highest index, then focus an element with an index
-      // that is one higher then that index.
+    moveRight() { 
+      if (!this.canMoveRight) return;
+
+      this.scrollIntoView(this.lastVisibleItemIndex + 1);
+    },
+
+    scrollIntoView(index: number) {
+      const itemElements = this.getItemElements();
+      if (!itemElements || !itemElements[index]) return;
+
+      itemElements[index].scrollIntoView({ behavior: "smooth", inline: "nearest" });
     },
 
     getItemElements() {
