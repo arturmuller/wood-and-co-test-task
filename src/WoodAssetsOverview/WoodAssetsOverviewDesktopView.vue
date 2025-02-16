@@ -56,6 +56,17 @@ export default {
     showNavigation() {
       return this.totalItems > 4;
     },
+    itemsVisibilityArray() {
+      return Object.entries(this.visibilityByIndex) || [];
+    },
+    firstVisibleItemIndex() {
+      return this.itemsVisibilityArray.findIndex(([_, isVisible]) => isVisible);
+    },
+    lastVisibleItemIndex() {
+      return this.itemsVisibilityArray.reduce((acc, [index, isVisible]) => {
+        return isVisible ? parseInt(index) : acc;
+      }, 0);
+    },
   },
 
   mounted() {
