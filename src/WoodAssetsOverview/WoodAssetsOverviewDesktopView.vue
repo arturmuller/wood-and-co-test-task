@@ -240,8 +240,9 @@ export default {
 }
 
 .containerDataWithoutButtons {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: var(--space-m-extra);
   background-color: white;
   padding-inline: var(--space-m);
@@ -250,6 +251,9 @@ export default {
 
 .assetsOverviewItemWithoutButtons {
   border-right: 1px solid var(--color-green-30);
+  text-align: right;
+  flex: 1;
+}
 .assetsOverviewItemWithoutButtons:last-child {
   border-right: none;
 }
