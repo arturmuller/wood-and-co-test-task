@@ -70,7 +70,8 @@ export default {
   },
 
   mounted() {
-    this.observer = this.setUpObserver();
+    this.setUpObserver();
+  },
   },
 
   methods: {
@@ -125,7 +126,9 @@ export default {
     },
 
     setUpObserver() {
-      const observer = new IntersectionObserver(
+      if (!this.showNavigation) return;
+
+      this.observer = new IntersectionObserver(
         (entries) => {
           for (const { isIntersecting, target } of entries) {
             const element = target as HTMLElement;
@@ -137,10 +140,9 @@ export default {
       );
 
       for (const element of this.getItemElements()) {
-        observer.observe(element);
+        this.observer.observe(element);
       }
-
-      return observer;
+    },
     },
   },
 };
