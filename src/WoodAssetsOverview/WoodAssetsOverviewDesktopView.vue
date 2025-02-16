@@ -205,7 +205,11 @@ export default {
 .containerData {
   display: flex;
   gap: 20px;
-  overflow: hidden;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;  /* hide scrollbar in Internet Explorer 10+ */
+  scrollbar-width: none;  /* hide scrollbar in Chrome, Safari and Firefox */
 }
 
 .assetsOverviewItem {
@@ -213,6 +217,9 @@ export default {
   width: 213px;
   flex-shrink: 0;
   transition: transform 0.5s ease-in-out;
+  text-align: right;
+  scroll-snap-align: start;
+}
 .lastVisibleItem {
   border-right: none;
 }
